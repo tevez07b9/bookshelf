@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react'
+import {client} from './utils/api-client'
+import Guest from './components/Guest'
 
 function App() {
+
+  const [testData, setTestData] = useState()
+
+  useEffect(() => {
+    // getTestData()
+  }, [])
+
+  const getTestData = async () => {
+    let data = null
+
+    data = await client('todos')
+      .then(data => setTestData(data))
+      .catch(err => setTestData(err))
+    return data
+  }
+
+  console.log(testData)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Guest />
     </div>
   );
 }
 
-export default App;
+export default App
